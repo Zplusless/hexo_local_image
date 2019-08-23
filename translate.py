@@ -72,10 +72,13 @@ def ingore_files(dirname, filenames):
 if __name__ == "__main__":
     
     source_dir = '../source'
-    # to_dir = './source_write'
+    # to_dir = '../source_bak'
 
-
-    # shutil.copytree(source_dir, cache_dir, ignore= ingore_files)
+    # if os.path.exists(to_dir):
+    #     print('source_bak已存在，不执行任何操作')
+    # else:
+    #     shutil.copytree(source_dir, to_dir)
+    #     print('\n文件备份完成\n')
     dir_iter(source_dir)
     print('\n替换操作完成\n')
 
