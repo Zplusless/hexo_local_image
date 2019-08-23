@@ -53,7 +53,20 @@
 5. 写完博客后，发布流程
 
    - ht  将源文件转化成hexo标准格式于source文件夹中，源文件备份于source_bak中
+   
    - hexo g  生成博客
+   
    - hexo d  发布博客
+   
    - hr  恢复source文件夹为markdown标准格式，删除备份文件夹source_bak
+   
+   - 简化命令
+   
+     ```shell
+     htg  # ht + hexo g  转化并生成可发布文件
+     hexo s  # 本地查看效果
+     hdr  # hexo d + hr  发布并恢复成markdown文件
+     ```
+   
+     
 

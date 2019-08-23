@@ -1,6 +1,6 @@
 if [ ! -d "../source_bak" ]
 then
-    cp -r ../source ../source_bak
+    cp -rp ../source ../source_bak  # -p保留路径元数据
     echo 'backup finished!'
     python3 translate.py 
 else
