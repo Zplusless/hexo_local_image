@@ -3,6 +3,12 @@ import re
 import shutil
 
 
+# 预编译
+re_normal = re.compile(r'!\[(.*)\]\((.*)\)')
+re_resize = re.compile(r'!\[\s*(\d+)\s*\%\s*,\s*(\d+)\s*\%\s*\]\((.*)\)')
+
+
+# 原图大小
 def replace(match):
     if match:
 #         print('match!!')
@@ -13,6 +19,17 @@ def replace(match):
     else:
         return None
 
+# 按照百分比缩放
+def resize(match):
+    if match:
+#         print('match!!')
+        width = match.group(1)
+        height = match.group(2)
+        path = match.group(3)
+        image = re.split(r'/',path)[-1]
+        return r'<img src="{}" width="{}%" height="{}%">'.format(image, width, height)
+    else:
+        return None
 
 def process(file):
     with open(file, 'r', encoding='utf8') as f:
@@ -20,8 +37,12 @@ def process(file):
     out_lines = []
     for line in lines:
         if ('http' not in line) and (r'](' in line):
-            out = re.sub(r'!\[(.*)\]\((.*)\)', replace, line)
-            out_lines.append(out)
+            if re.search(re_resize, line):
+                out = re.sub(re_resize, resize, line)
+                out_lines.append(out)
+            else:
+                out = re.sub(re_normal, replace, line)
+                out_lines.append(out)
         else:
             out_lines.append(line)
     with open(file, 'w', encoding='utf8') as f:
